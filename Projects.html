@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV vs. Petrol Vehicle AQI Impact Estimator</title>
+    <link rel="stylesheet" href="style4.css">
+</head>
+<body>
+    <div class="sec">
+        <nav>
+            <div class="btn">
+                <a href="index.html"><button class="t1" id="c1" onclick="func1()" >Home</button></a><span class="space">&nbsp</span>
+                <a href="About.html" ><button class="t1">About</button></a><span class="space">&nbsp</span>
+                <a href="skill.html" ><button class="t1">Cars</button></a><span class="space">&nbsp</span>
+                <a href="Projects.html"><button class="t1">AQI</button></a><span class="space">&nbsp</span>
+                <a href="Contacts.html"><button>Cost</button></a>
+            </div>
+        </nav>
+    <h1 class="i2">EV vs. Petrol Vehicle AQI Impact Estimator</h1>
+    <div class="container">
+        <div class="section1">
+            <h2>Petrol Vehicle</h2>
+            <label for="distancePetrol">Distance (km):</label>
+            <input type="number" id="distancePetrol" min="1" required>
+            <label for="fuelEconomyPetrol">Fuel Economy (km/L):</label>
+            <input type="number" id="fuelEconomyPetrol" min="0.01" required>
+            <button onclick="calculatePetrolAQI()">Calculate Impact</button>
+            <div id="petrolResults"></div>
+        </div>
+        <div class="section2">
+            <h2>Electric Vehicle</h2>
+            <label for="distanceElectric">Distance (km):</label>
+            <input type="number" id="distanceElectric" min="1" required>
+            <label for="electricityGridMix">Grid Mix (% Renewables):</label>
+            <input type="number" id="electricityGridMix" min="0" max="100" value="50" required> <button onclick="calculateElectricAQI()">Calculate Impact</button>
+            <div id="electricResults"></div>
+        </div>
+    </div>
+   
+   
+    <script>// Emission factors (grams per kilometer) - source: US EPA averages
+        const co2Petrol = 200;
+        const noxPetrol = 0.07;
+        const hcPetrol = 0.14;
+        const co2GridMixFactor = 0.8; // Assumed average CO2 emission per kWh (grams/kWh) - adjust as needed
+        
+        function createEmissionRow(gas, emission) {
+          const row = document.createElement('tr');
+          const gasCell = document.createElement('td');
+          const emissionCell = document.createElement('td');
+          gasCell.textContent = gas;
+          emissionCell.textContent = emission.toFixed(2); // Format emission value with 2 decimal places
+          row.appendChild(gasCell);
+          row.appendChild(emissionCell);
+          return row;
+        }
+        
+        function calculatePetrolAQI() {
+          const distancePetrol = parseFloat(document.getElementById('distancePetrol').value);
+          const fuelEconomyPetrol = parseFloat(document.getElementById('fuelEconomyPetrol').value);
+        
+          // Error handling and validation (add checks for valid input)
+        
+          // Estimate total emissions based on distance and emission factors
+          const co2EmissionPetrol = distancePetrol * co2Petrol;
+          const noxEmissionPetrol = distancePetrol * noxPetrol;
+          const hcEmissionPetrol = distancePetrol * hcPetrol;
+        
+          const petrolResults = document.getElementById('petrolResults');
+          petrolResults.innerHTML = "";
+          petrolResults.appendChild(createEmissionRow("CO2:", co2EmissionPetrol,"ppm"));
+          petrolResults.appendChild(createEmissionRow("NOx:", noxEmissionPetrol,"ppm"));
+          petrolResults.appendChild(createEmissionRow("HC:", hcEmissionPetrol ,"ppm"));
+        }
+        
+        function calculateElectricAQI() {
+          const distanceElectric = parseFloat(document.getElementById('distanceElectric').value);
+          const electricityGridMix = parseFloat(document.getElementById('electricityGridMix').value);
+        
+          // Error handling and validation (add checks for valid input)
+        
+          // Estimate CO2 emission from electricity consumption (simplified approach)
+          const electricityConsumption = distanceElectric / 10; // Assuming average EV consumption of 10 kWh/100km (adjust as needed)
+          const co2EmissionElectric = electricityConsumption * co2GridMixFactor * (electricityGridMix / 100);
+        
+          const electricResults = document.getElementById('electricResults');
+          electricResults.innerHTML = "";
+          electricResults.appendChild(createEmissionRow("CO2", co2EmissionElectric));
+          electricResults.textContent = "Electric vehicles produce zero tailpipe emissions, but electricity generation may contribute to CO2 emissions.";
+        }
+        
+        function compareEmissions() {
+          const petrolResults = document.getElementById('petrolResults');
+          const electricResults = document.getElementById('electricResults');
+        
+          // Check if both calculations have been performed
+          if (!petrolResults.hasChildNodes() || !electricResults.textContent) {
+            alert("Please calculate emissions for both petrol and electric vehicles before comparing.");
+            return;
+          }
+        
+          const conclusion = document.getElementById('conclusion');
+          conclusion.innerHTML = "";
+        
+          // Assuming CO2 is the primary pollutant of concern for AQI
+          const co2PetrolEmission = parseFloat(petrolResults.children[0].children[1].textContent);
+          const co2ElectricEmission = parseFloat(electricResults.textContent.split(": ")[1]); // Extract CO2 value from electric results
+        
+          conclusion.textContent = "For this trip, based on estimated CO2 emissions:";
+          if (co2PetrolEmission > co2ElectricEmission) {
+            conclusion.textContent += " a petrol vehicle would likely have a greater impact on local air quality compared to an electric vehicle.";
+          } else if (co2PetrolEmission < co2ElectricEmission) {
+            conclusion.textContent += " an electric vehicle might be a more environmentally friendly choice, considering the current grid mix.";
+          } else {
+            conclusion.textContent += " the impact on local air quality would be similar for both options.";
+          }
+        
+          // Disclaimer: Consider adding a note about limitations of this simplified estimation.
+        }
+        </script>
+</body>
+</html>
+
+
+
+

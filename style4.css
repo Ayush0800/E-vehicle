@@ -1,0 +1,156 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+
+.sec{
+    
+    background: url("pic/Project.jpg");
+    background-size: 100% ;
+    background-repeat: no-repeat;
+    height: 720px;
+    
+}
+.i1{
+  width:200px;
+  height:200px;
+  border:2px solid white;
+  border-radius: 100px;
+  
+}
+
+
+nav{
+    display: flex;
+    height: 110px;
+    font-family:'poppins', sans-serif;
+    background-size:cover;
+    background-position: center;
+    position:relative;  
+    font-weight: 600;
+    letter-spacing: 3px;
+    
+    
+    
+}
+
+.space1{
+    padding-left: 50px;
+}
+button:hover {
+    text-decoration: underline;
+    background-color: red;
+  }
+
+.p1{
+    padding-top: 20px;
+    display:flex;
+    font-size: 50px;
+    color: rgba(36, 152, 96, 0.747);
+
+}
+.btn{
+    padding-top:22px;
+    justify-content: center;
+    padding-left: 250px;
+}
+nav button{
+    background-color:rgba(12, 32, 88, 0.973) ;
+    color:white;
+    font-size: 12px;
+    width:80px;
+    cursor: pointer;
+    border: 0px;
+    height:40px;
+    border: 2px solid white;
+    border-radius: 10px;
+    
+
+    
+}
+.space{
+    padding-left: 120px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    color: white;
+    padding-left: 100px;
+    padding-right: 100px;
+    
+    
+}
+
+
+.section1 {
+    width: 45%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 450px;
+    font-size: 30px;
+    background: linear-gradient(to left, rgba(51,204,255,0.5)0%, rgba(255,153,204,0.5)100%);
+    border: 2px solid white;
+    border-radius: 50px;
+    
+}
+.section2 {
+    width: 45%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 450px;
+    font-size: 30px;
+    background: linear-gradient(to left, rgba(51,204,255,0.5)0%, rgba(255,153,204,0.5)100%);
+    border: 2px solid white;
+    border-radius: 50px;
+    
+}
+.i2{
+    padding-top: 10px;
+    color: white;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 30px;
+    padding-top: 20px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    padding-top: 10px;
+}
+
+
+
+#conclusion {
+    text-align: center;
+    margin-top: 2rem;
+    color: white;
+}
+
+  

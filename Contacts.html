@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petrol vs. Electric Vehicle Cost Comparison (₹)</title>
+  <style>
+    *{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+
+.sec{
+    
+    background: url("pic/cost.jpg");
+    background-size: 100% ;
+    background-repeat: no-repeat;
+    height: 720px;
+    
+}
+button:hover {
+    text-decoration: underline;
+    background-color: red;
+  }
+
+.p1{
+    padding-top: 20px;
+    display:flex;
+    font-size: 50px;
+    color: rgba(36, 152, 96, 0.747);
+
+}
+.btn{
+    padding-top:35px;
+    justify-content: center;
+    padding-left: 250px;
+}
+nav button{
+    background-color:rgba(12, 32, 88, 0.973) ;
+    color:white;
+    font-size: 12px;
+    width:80px;
+    cursor: pointer;
+    border: 0px;
+    height:40px;
+    border: 2px solid white;
+    border-radius: 10px;
+    
+
+    
+}
+.space{
+    padding-left: 120px;
+}
+
+  .container {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    color: white;
+    padding-left: 100px;
+    padding-right: 100px;
+   
+    
+}
+
+
+
+
+nav{
+    display: flex;
+    height: 110px;
+    font-family:'poppins', sans-serif;
+    background-size:cover;
+    background-position: center;
+    position:relative;  
+    font-weight: 600;
+    letter-spacing: 3px;
+    
+    
+    
+}
+.section1 {
+    width: 45%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 450px;
+    font-size: 30px;
+    background: linear-gradient(to left, rgba(51,204,255,0.5)0%, rgba(255,153,204,0.5)100%);
+    border: 2px solid white;
+    border-radius: 50px;
+    
+}
+.section2 {
+    width: 45%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 450px;
+    font-size: 30px;
+    background: linear-gradient(to left, rgba(51,204,255,0.5)0%, rgba(255,153,204,0.5)100%);
+    border: 2px solid white;
+    border-radius: 50px;
+    
+}
+
+.space1{
+    padding-left: 50px;
+}
+    body {
+      font-family: sans-serif;
+      
+      
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="number"] {
+      padding: 5px;
+      margin-bottom: 10px;
+      width: 200px;
+    }
+    .i2{
+    padding-top: 10px;
+    color: white;
+    padding-left: 50px;
+}
+    .result {
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 25px;
+    }
+    h1 {
+    text-align: center;
+}
+
+  </style>
+</head>
+<body>
+    <div class="sec">
+        <nav>
+            <div class="btn">
+                <a href="index.html"><button class="t1" id="c1" onclick="func1()" >Home</button></a><span class="space">&nbsp</span>
+                <a href="About.html" ><button class="t1">About</button></a><span class="space">&nbsp</span>
+                <a href="skill.html" ><button class="t1">Cars</button></a><span class="space">&nbsp</span>
+                <a href="Projects.html"><button class="t1">AQI</button></a><span class="space">&nbsp</span>
+                <a href="Contacts.html"><button>Cost</button></a>
+            </div>
+        </nav>
+  <h1 class="i2">Petrol vs. Electric Vehicle Cost Comparison (₹)</h1>
+  <div class="container">
+  <div class="section1">
+    <h2>Petrol Vehicle:</h2>
+  
+    
+  <label for="petrol-mileage">Petrol Mileage (miles per gallon):</label>
+  <input type="number" id="petrol-mileage" placeholder="Enter mileage (e.g., 25)">
+  <label for="petrol-price">Petrol Price per Gallon (₹):</label>
+  <input type="number" id="petrol-price" step="0.01" placeholder="Enter price (e.g., 100)">
+  <div class="result" id="result"></div>
+</div>
+<div class="section2">
+  <h2>Electric Vehicle:</h2>
+  <label for="electricity-cost">Electricity Cost per kWh (₹):</label>
+  <input type="number" id="electricity-cost" step="0.01" placeholder="Enter cost (e.g., 0.12)">
+  <label for="ev-consumption">EV kWh Consumption per Mile:</label>
+  <input type="number" id="ev-consumption" step="0.01" placeholder="Enter consumption (e.g., 0.35)">
+
+  <label for="monthly-distance">Estimated Monthly Driving Distance (miles):</label>
+  <input type="number" id="monthly-distance" placeholder="Enter distance (e.g., 1000)">
+
+  <button onclick="calculateCost()">Compare Costs</button>
+
+  
+</div>
+</div>
+
+  <script>
+    function calculateCost() {
+      const petrolMileage = parseFloat(document.getElementById("petrol-mileage").value);
+      const petrolPrice = parseFloat(document.getElementById("petrol-price").value);
+      const electricityCost = parseFloat(document.getElementById("electricity-cost").value);
+      const evConsumption = parseFloat(document.getElementById("ev-consumption").value);
+      const monthlyDistance = parseFloat(document.getElementById("monthly-distance").value);
+
+      // Function to calculate cost for a given distance
+      function calculateDistanceCost(distance) {
+        const costPerMile = petrolPrice / petrolMileage; // Petrol cost per mile
+        const annualPetrolCost = distance * costPerMile; // Monthly petrol cost
+        const annualElectricityCost = distance * evConsumption * electricityCost; // Monthly electricity cost
+        return { petrolCost: annualPetrolCost, electricityCost: annualElectricityCost };
+      }
+
+      // Calculate monthly costs
+      const monthlyCosts = calculateDistanceCost(monthlyDistance);
+
+      // Display Results
+      let resultText = "**Comparison Results (Monthly):**<br>";
+      resultText += `Estimated Monthly Petrol Cost: ₹ ${monthlyCosts.petrolCost.toFixed(2)}<br>`;
+      resultText += `Estimated Monthly Electric Cost: ₹ ${monthlyCosts.electricityCost.toFixed(2)}<br>`;
+
+      if (monthlyCosts.electricityCost < monthlyCosts.petrolCost) {
+        resultText += "**Electric Vehicle is estimated to be more cost-effective by ₹ " + (monthlyCosts.petrolCost - monthlyCosts.electricityCost).toFixed(2) + " monthly.";
+      } else {
+        resultText += "**Petrol Vehicle is estimated to be more cost-effective for this scenario.";
+      }
+
+      document.getElementById("result").innerHTML = resultText;
+    }
+  </script>
+</body>
+</html>
+
